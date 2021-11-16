@@ -7,3 +7,6 @@ Lets create a Kubernetes cluster to play with using [kind](https://kind.sigs.k8s
 ```
 kind create cluster --name homelab
 ```
+
+
+kind delete cluster --name homelab

@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx-deployment
+  namespace: flyway-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-deployment
+  template:
+    metadata:
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+      - name: nginx-deployment    
+        image: nginx:1.14.2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      initContainers:
+      - name: flyway-migrate
+        image: rmiguel/flyway:3
+        envFrom:
+        - configMapRef:
+            name: config-nginx-deployment
+        command: ["/bin/bash", "-c"]
+        args:
+          - if [[ "$ENV_PJE_FLYWAY_ENABLE_ONSTARTUP" == true ]]; then flyway migrate; fi
+      restartPolicy: Always

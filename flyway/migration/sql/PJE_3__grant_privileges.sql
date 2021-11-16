@@ -1,0 +1,1 @@
+GRANT ALL ON DATABASE foo TO foo

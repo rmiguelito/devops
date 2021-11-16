@@ -1,0 +1,15 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: config-nginx-deployment
+  namespace: flyway-app
+data:
+  FLYWAY_URL: "jdbc:postgresql://34m49unv.instances.spawn.cc:31777/postgres"
+  FLYWAY_USER: "spawn_admin_YOsj"
+  FLYWAY_PASSWORD: "nJPPNx67lCCQMmx7"
+  FLYWAY_SQL_MIGRATION_PREFIX: "PJE_"
+  FLYWAY_SQL_MIGRATION_SUFFIXES: ".sql"
+  FLYWAY_OUT_OF_ORDER: "true"
+  FLYWAY_EDITION: "community"
+  FLYWAY_LOGGERS: "console"
+  ENV_PJE_FLYWAY_ENABLE_ONSTARTUP: "true"
