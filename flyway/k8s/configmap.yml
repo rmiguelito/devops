@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: config-nginx-deployment
+  name: nginx-deployment-env
 data:
   FLYWAY_URL: "jdbc:postgresql://34m49unv.instances.spawn.cc:32737/postgres"
   FLYWAY_USER: "spawn_admin_YOsj"
