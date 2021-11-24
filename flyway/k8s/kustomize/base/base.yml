@@ -21,7 +21,7 @@ spec:
         - containerPort: 80
       initContainers:
       - name: flyway-migrate
-        image: docker.io/rmiguel/flyway:2
+        image: docker.io/rmiguel/flyway:1
         resources:
           limits:
             memory: "500Mi"
