@@ -36,6 +36,11 @@ spec:
             name: nginx-deployment-env
         command: ["/bin/bash", "-c"]
         args:
-          - if [[ "$ENV_PJE_FLYWAY_ENABLE_ONSTARTUP" == true ]]; then flyway migrate; fi
+          - >
+            if [ "x$ENV_PJE_FLYWAY_ENABLE_ONSTARTUP" = "xtrue" ]; then
+              flyway migrate
+            else
+              /bin/true
+            fi
       restartPolicy: Always
 ---

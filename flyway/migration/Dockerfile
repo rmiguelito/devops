@@ -1,3 +1,3 @@
 FROM docker.io/flyway/flyway:8
 
-ADD sql/*.sql /flyway/sql/
+COPY sql/*.sql /flyway/sql/
