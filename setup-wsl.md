@@ -198,11 +198,11 @@ https://www.nerdfonts.com/font-downloads
             "type": "kubectl",
             "style": "powerline",
             "powerline_symbol": "\uE0B0",
-            "foreground": "#000000",
-            "background": "#ebcc34",
+            "foreground": "#ffffff",
+            "background": "#01579B",
             "properties": {
               "prefix": " \uFD31 ",
-              "template": "{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}"
+              "template": "{{.Context}} : {{if .Namespace}}{{.Namespace}}{{else}}default{{end}}"
             }
         }
       ]
@@ -212,6 +212,33 @@ https://www.nerdfonts.com/font-downloads
 }
 ```
 
+## Plugins Kubectl
+```bash
+(
+  set -x; cd "$(mktemp -d)" &&
+  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+  KREW="krew-${OS}_${ARCH}" &&
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+  tar zxvf "${KREW}.tar.gz" &&
+  ./"${KREW}" install krew
+)
+```
+Add the $HOME/.krew/bin directory to your PATH environment variable. To do this, update your .bashrc or .zshrc file and append the following line:
+```bash
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+```
+https://krew.sigs.k8s.io/docs/user-guide/quickstart/
 
+- Run kubectl krew to check the installation.
+
+```bash
+kubectl krew install access-matrix
+kubectl krew install blame
+kubectl krew install ctx
+kubectl krew install debug-shell
+kubectl krew install janitor
+kubectl krew install ns
+```
 #### TODO
 Migrar instalações para Ansible
