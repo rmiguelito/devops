@@ -126,6 +126,92 @@ sudo -i
 kind create cluster
 kind delete cluster
 ```
+## OH My POSH Windows Terminal
+https://ohmyposh.dev/
+https://docs.microsoft.com/pt-br/windows/terminal/tutorials/custom-prompt-setup
+https://www.nerdfonts.com/font-downloads
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "session",
+          "style": "diamond",
+          "foreground": "#ffffff",
+          "background": "#61AFEF",
+          "leading_diamond": "\uE0B6",
+          "trailing_diamond": "\uE0B0",
+          "properties": {
+            "template": "{{ .UserName }}@{{ .ComputerName }}"
+          }
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#ffffff",
+          "background": "#C678DD",
+          "properties": {
+            "style": "full"
+          }
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#193549",
+          "background": "#95ffa4",
+          "properties": {
+            "template": "{{ .HEAD }}"
+          }
+        },
+        {
+            "type": "executiontime",
+            "style": "diamond",
+            "leading_diamond": "<transparent,#49404f>\uE0B0</>",
+            "trailing_diamond": "\uE0B0",
+            "foreground": "#ffffff",
+            "background": "#49404f",
+            "properties": {
+              "threshold": 0,
+              "style": "dallas",
+              "postfix": "s "
+            }
+          },
+          {
+            "type": "exit",
+            "style": "powerline",
+            "powerline_symbol": "\uE0B0",
+            "foreground": "#ffffff",
+            "background": "#910000",
+            "properties": {
+              "prefix": "<transparent> \uF12A</> ",
+              "template": "{{ .Code }} - {{ .Text }}"
+            }
+          },
+        {
+            "type": "kubectl",
+            "style": "powerline",
+            "powerline_symbol": "\uE0B0",
+            "foreground": "#000000",
+            "background": "#ebcc34",
+            "properties": {
+              "prefix": " \uFD31 ",
+              "template": "{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}"
+            }
+        }
+      ]
+    }
+  ],
+  "final_space": true
+}
+```
+
 
 #### TODO
 Migrar instalações para Ansible
