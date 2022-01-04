@@ -1,28 +1,11 @@
 ## Ansible
 ```bash
-sudo apt install python3-pip
+sudo apt update
+sudo apt install python3-pip -y
 sudo pip install ansible jmespath jmespath-terminal --system
+
 ```
 https://github.com/jmespath/jmespath.terminal
-
-## Docker
-```bash
-sudo apt-get update
-sudo apt-get install -y \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli
-sudo service start docker
-```
 
 ## PODMAN
 ```bash
@@ -32,6 +15,11 @@ sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 curl -L "https://download.opensuse.org/repositories/devel:/kubic:\
 /libcontainers:/stable/xUbuntu_20.04/Release.key" | sudo apt-key add -
 
+sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
 sudo apt-get update
 sudo apt install -y podman
 
@@ -53,21 +41,18 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/kubectl
 ```
-## Kind
-```bash
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
-chmod +x ./kind
-sudo mv ./kind /usr/local/bin/kind
-sudo -i
-kind create cluster
-kind delete cluster
-```
+
 ## HELM
 ```bash
 Download your desired version
+wget https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
+tar -zxvf helm-v3.7.2-linux-amd64.tar.gz
+mv linux-amd64/helm /usr/local/bin/helm
+rm -rf helm-v3.7.2-linux-amd64.tar.gz linux-amd64
+```
 Unpack it (tar -zxvf helm-v3.0.0-linux-amd64.tar.gz)
 Find the helm binary in the unpacked directory, and move it to its desired destination (mv linux-amd64/helm /usr/local/bin/helm)
-```
+
 
 ## Velero
 ```bash
@@ -104,7 +89,7 @@ eksctl version
 ```bash
 wget https://downloads-openshift-console.sao1-sibot-ocp4-dev-1-c-9bd168bd7799c8d70570dd790632a2cb-0000.sao01.containers.appdomain.cloud/amd64/linux/oc.tar
 tar -xvf oc.tar
-mv oc /usr/local/bin/
+sudo mv oc /usr/local/bin/
 rm -rf oc.tar
 ```
 ## Terraform
@@ -112,6 +97,34 @@ rm -rf oc.tar
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install terraform
+```
+
+## Docker
+```bash
+sudo apt-get update
+sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli
+sudo service start docker
+```
+## Kind
+```bash
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+sudo -i
+kind create cluster
+kind delete cluster
 ```
 
 #### TODO
