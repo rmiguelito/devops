@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://br-sao.git.cloud.ibm.com/rodrigo.miguel/demo-argocd.git
+    targetRevision: main
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://br-sao.git.cloud.ibm.com/rodrigo.miguel/demo-argocd.git
+    targetRevision: prd
+    path: dev
+  destination:
+    server: https://c5.par01.containers.cloud.ibm.com:24158
+    namespace: prod
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
