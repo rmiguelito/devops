@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-pvc-test
+spec:
+  containers:
+    - name: pod-pvc-test
+      image: busybox
+      command:
+        - sh
+        - -c
+        - sleep 3600
+      volumeMounts:
+        - name: pvc-volume
+          mountPath: /mnt
+  volumes:
+    - name: pvc-volume
+      persistentVolumeClaim:
+        claimName: pvc-5a73e0446f

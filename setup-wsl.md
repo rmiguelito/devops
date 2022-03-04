@@ -71,6 +71,11 @@ cd Bluemix_CLI/
 sudo bash install
 add [[ -f /usr/local/ibmcloud/autocomplete/bash_autocomplete ]] && source /usr/local/ibmcloud/autocomplete/bash_autocomplete on /etc/profile
 rm -rf IBM_Cloud_CLI_2.3.0_amd64.tar.gz
+ibmcloud plugin install container-service
+ibmcloud plugin install container-registry
+ibmcloud plugin install observe-service
+ibmcloud plugin list
+ibmcloud cf install
 ```
 
 ## AWS CLI

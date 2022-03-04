@@ -1,0 +1,3 @@
+repository: https://br-sao.git.cloud.ibm.com/rodrigo.miguel/demo-spring-boot.git
+branch: main or simple-pipeline
+git-access-token:

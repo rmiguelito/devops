@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: build-image-from-git-taskrun
+  generateName: build-image-from-git-
+spec:
+  serviceAccountName: default
+  taskRef:
+    name: build-image-from-git-task
+  params:
+    - name: PathDockerfile
+      value: Dockerfile
+    - name: PathContext
+      value: $(resources.inputs.docker-source.path)/examples/microservices/leeroy-app
+    - name: imagetag
+      value: 1.0.0
+  resources:
+    inputs:
+      - name: docker-source
+        resourceRef:
+          name: git-resource
+    outputs:
+      - name: built-image
+        resourceRef:
+          name: built-image

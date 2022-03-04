@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: pipelinerun-build-image-from-git
+  generateName: pipelinerun-build-image-from-git-
+spec:
+  serviceAccountName: default
+  pipelineRef:
+    name: pipeline-build-image-from-git
+  resources:
+    - name: source-repo
+      resourceRef:
+        name: git-resource
+    - name: built-image
+      resourceRef:
+        name: built-image

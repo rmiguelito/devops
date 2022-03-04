@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-image-from-git-task
+spec:
+  params:
+    - name: imagetag
+      type: string
+      default: latest
+    - name: PathDockerfile
+      type: string
+      description: Path to the Dockerfile
+      default: $(resources.input.docker-source.path)/Dockerfile
+    - name: PathContext
+      type: string
+      description: Path to the context directory
+      default: $(resources.input.docker-source.path)
+  resources:
+    inputs:
+      - name: docker-source
+        type: git
+    outputs:
+      - name: built-image
+        type: image
+  steps:
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:latest
+      env:
+        - name: "DOCKER_CONFIG"
+          value: "/tekton/home/.docker/"
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=$(params.PathDockerfile)
+        - --destination=$(resources.outputs.built-image.url):$(params.imagetag)
+        - --context=$(params.PathContext)
+        - --build-arg=BASE=alpine:3

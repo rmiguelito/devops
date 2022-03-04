@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: hello
+spec:
+  steps:
+    - name: hello
+      image: ubuntu
+      command: ["/bin/bash"]
+      args: ["-c", "sleep 10", "echo hello world"]

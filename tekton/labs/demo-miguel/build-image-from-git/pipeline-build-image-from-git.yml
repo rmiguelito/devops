@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-build-image-from-git
+spec:
+  resources:
+    - name: source-repo
+      type: git
+    - name: built-image
+      type: image
+  tasks:
+    - name: build-image
+      taskRef:
+        name: build-image-from-git-task
+      params:
+        - name: PathDockerfile
+          value: Dockerfile
+        - name: PathContext
+          value: /workspace/docker-source/examples/microservices/leeroy-web
+      resources:
+        inputs:
+          - name: docker-source
+            resource: source-repo
+        outputs:
+          - name: built-image
+            resource: built-image
+    - name: deploy-web
+      taskRef:
+        name: deploy-using-kubectl
+      resources:
+        inputs:
+          - name: source
+            resource: source-repo
+          - name: built-image
+            resource: built-image
+            from:
+              - build-image
+      params:
+        - name: path
+          value: /workspace/source/examples/microservices/leeroy-web/kubernetes/deployment.yaml
+        - name: yamlPathToImage
+          value: spec.template.spec.containers[0].image

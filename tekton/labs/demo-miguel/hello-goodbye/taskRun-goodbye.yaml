@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  creationTimestamp: null
+  generateName: goodbye-run-
+  namespace: tekton-builds
+spec:
+  inputs: {}
+  outputs: {}
+  serviceAccountName: ""
+  taskRef:
+    name: goodbye
+  timeout: 1h0m0s
+status:
+  podName: ""
